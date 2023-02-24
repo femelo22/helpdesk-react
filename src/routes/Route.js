@@ -1,4 +1,6 @@
+import { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { AuthContext } from '../contexts/auth';
 
 //Componente que podemos validar nossas rotas
 export default function Router({
@@ -7,8 +9,7 @@ export default function Router({
   ...rest
 }) {
 
-  const loading = false;
-  const signed = false;
+  const { signed, loading } = useContext(AuthContext);
 
   if(loading) {
     return (
