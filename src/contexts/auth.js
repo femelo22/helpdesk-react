@@ -9,24 +9,6 @@ function AuthProvider({ children }){
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-
-    function loadStorage(){
-      const storageUser = localStorage.getItem('SistemaUser');
-
-      if(storageUser){
-        setUser(JSON.parse(storageUser));
-        setLoading(false);
-      }
-  
-      setLoading(false);
-    }
-    
-    loadStorage();
-
-  }, [])
-
-
   //Fazendo login do usuario
   async function signIn(email, password){
     setLoadingAuth(true);
@@ -57,7 +39,6 @@ function AuthProvider({ children }){
     })
 
   }
-
 
   //Cadastrando um novo usuario
   async function signUp(email, password, nome){
@@ -95,14 +76,6 @@ function AuthProvider({ children }){
 
   }
 
-
-
-  function storageUser(data){
-    localStorage.setItem('SistemaUser', JSON.stringify(data));
-  }
-
-
-
   //Logout do usuario
   async function signOut(){
     await firebase.auth().signOut();
@@ -110,6 +83,27 @@ function AuthProvider({ children }){
     setUser(null);
   }
 
+
+  function storageUser(data){
+    localStorage.setItem('SistemaUser', JSON.stringify(data));
+  }
+
+  useEffect(()=>{
+
+    function loadStorage(){
+      const storageUser = localStorage.getItem('SistemaUser');
+
+      if(storageUser){
+        setUser(JSON.parse(storageUser));
+        setLoading(false);
+      }
+  
+      setLoading(false);
+    }
+    
+    loadStorage();
+
+  }, [])
 
   return(
     <AuthContext.Provider 
