@@ -4,6 +4,7 @@ import './signin.css';
 
 import logo from '../../assets/logo.png';
 import { AuthContext } from '../../contexts/auth';
+import { toast } from 'react-toastify';
 
 
 export default function SinIn() {
@@ -20,7 +21,7 @@ export default function SinIn() {
     if(login && password) {
       login(email, password);
     } else {
-      alert('Opa opa opa, cade as creds?')
+      toast.error('Opaaa, cadê as credenciais?');
     }
   }
 
