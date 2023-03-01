@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './signin.css';
 
 import logo from '../../assets/logo.png';
+import { AuthContext } from '../../contexts/auth';
 
 
 export default function SinIn() {
@@ -10,9 +11,17 @@ export default function SinIn() {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
 
+  const { login } = useContext(AuthContext);
+
+
+
   function handleSubmit(e) {
     e.preventDefault(); // para nao atualizar a pagina (comportamento do formulario form)
-    alert('Tentou logar')
+    if(login && password) {
+      login(email, password);
+    } else {
+      alert('Opa opa opa, cade as creds?')
+    }
   }
 
   return (

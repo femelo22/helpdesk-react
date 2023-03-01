@@ -9,13 +9,13 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signUp, loadingAuth } = useContext(AuthContext);
+  const { createUser, loadingAuth } = useContext(AuthContext);
 
   function handleSubmit(e){
     e.preventDefault();
     
     if(nome !== '' && email !== '' && password !== ''){
-      signUp(email, password, nome)
+      createUser(email, password, nome)
     }
 
   }

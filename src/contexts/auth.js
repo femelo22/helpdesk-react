@@ -10,15 +10,18 @@ function AuthProvider({ children }){
   const [loading, setLoading] = useState(true);
 
   //Fazendo login do usuario
-  async function signIn(email, password){
+  async function login(email, password){
     setLoadingAuth(true);
 
     await firebase.auth().signInWithEmailAndPassword(email, password)
     .then(async (value)=> {
       let uid = value.user.uid;
 
-      const userProfile = await firebase.firestore().collection('users')
-      .doc(uid).get();
+      const userProfile = await firebase
+      .firestore()
+      .collection('users')
+      .doc(uid)
+      .get();
 
       let data = {
         uid: uid,
@@ -30,18 +33,15 @@ function AuthProvider({ children }){
       setUser(data);
       storageUser(data);
       setLoadingAuth(false);
-
-
     })
     .catch((error)=>{
       console.log(error);
       setLoadingAuth(false);
     })
-
   }
 
   //Cadastrando um novo usuario
-  async function signUp(email, password, nome){
+  async function createUser(email, password, nome){
     setLoadingAuth(true);
 
     await firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -67,13 +67,11 @@ function AuthProvider({ children }){
         setLoadingAuth(false);
 
       })
-
     })
     .catch((error)=>{
       console.log(error);
       setLoadingAuth(false);
     })
-
   }
 
   //Logout do usuario
@@ -111,9 +109,9 @@ function AuthProvider({ children }){
       signed: !!user,  
       user, 
       loading, 
-      signUp,
+      login,
       signOut,
-      signIn,
+      createUser,
       loadingAuth
     }}
     >
